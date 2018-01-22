@@ -11,6 +11,7 @@ import android.preference.PreferenceManager;
 
 import com.coolweather.android.WeatherActivity;
 import com.coolweather.android.gson.Weather;
+import com.coolweather.android.hegson.HeWeather;
 import com.coolweather.android.util.HttpUtil;
 import com.coolweather.android.util.Utility;
 
@@ -48,9 +49,9 @@ public class AutoUpdateService extends Service {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String weatherString = prefs.getString("weather", null);
         if (weatherString != null) {
-            Weather weather = Utility.handleWeatherResponse(weatherString);
-            String weatherId = weather.basic.weatherId;
-            String weatherUrl = "http://guolin.tech/api/weather?cityid=" + weatherId + "&key=3340d18f8777464c89463322d605c1b0&location=huhehaote";
+            HeWeather weather = Utility.handleWeatherResponse(weatherString);
+            String weatherId = weather.basic.cityId;
+            String weatherUrl = "https://free-api.heweather.com/s6/weather?location=" + weatherId + "&key=3340d18f8777464c89463322d605c1b0";
             HttpUtil.sendOkHttpRequest(weatherUrl, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
@@ -60,7 +61,7 @@ public class AutoUpdateService extends Service {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     String responseText = response.body().string();
-                    Weather weather = Utility.handleWeatherResponse(responseText);
+                    HeWeather weather = Utility.handleWeatherResponse(responseText);
                     if (weather != null && "ok".equals(weather.status)) {
                         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(AutoUpdateService.this).edit();
                         editor.putString("weather", responseText);
