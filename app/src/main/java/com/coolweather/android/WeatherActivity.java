@@ -55,6 +55,7 @@ public class WeatherActivity extends AppCompatActivity {
     public DrawerLayout drawerLayout;
     private Button navButton;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +79,7 @@ public class WeatherActivity extends AppCompatActivity {
         bingPicImg = findViewById(R.id.bing_pic_img);
         swipeRefresh = findViewById(R.id.swipt_refresh);
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
-        drawerLayout = findViewById(R.id.dream_layout);
+        drawerLayout = findViewById(R.id.drawer_layout);
         navButton = findViewById(R.id.nav_button);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String weatherString = prefs.getString("weather", null);
@@ -156,7 +157,7 @@ public class WeatherActivity extends AppCompatActivity {
     private void showWeatherInfo(HeWeather weather) {
         String cityName = weather.basic.cityName;
         String updateTime = weather.update.loc.split(" ")[1];
-        String degree = weather.now.tmp + "℃";
+        String degree = weather.now.tmp;
         String weatherInfo = weather.now.cond_txt;
         titleCity.setText(cityName);
         titleUpdateTime.setText(updateTime);
@@ -167,12 +168,10 @@ public class WeatherActivity extends AppCompatActivity {
             View view = LayoutInflater.from(this).inflate(R.layout.forecast_item, forecastLayout, false);
             TextView dateText = view.findViewById(R.id.date_text);
             TextView infoText = view.findViewById(R.id.info_text);
-            TextView maxText = view.findViewById(R.id.max_text);
-            TextView minText = view.findViewById(R.id.min_text);
+            TextView tmp = view.findViewById(R.id.tmp);
             dateText.setText(forecast.date);
             infoText.setText(forecast.cond_txt_d);
-            maxText.setText(forecast.tmp_max);
-            minText.setText(forecast.tmp_min);
+            tmp.setText(forecast.tmp_max + " / " + forecast.tmp_min + "℃");
             forecastLayout.addView(view);
         }
         /*if (weather.aqi != null) {

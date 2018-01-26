@@ -7,11 +7,11 @@ android {
         minSdkVersion 19
         targetSdkVersion 26
         versionCode 1
-        versionName "1.1"
+        versionName "1.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    signingConfigs{
-        config{
+    signingConfigs {
+        config {
             storeFile file(KEY_PATH)
             storePassword KEY_PASS
             keyAlias ALIAS_NAME
@@ -39,6 +39,7 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:26.1.0'
     implementation 'com.android.support:cardview-v7:26.1.0'
     implementation 'com.android.support:design:26.1.0'
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.4-7'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }

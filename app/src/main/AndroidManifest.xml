@@ -26,6 +26,7 @@
             android:enabled="true"
             android:exported="true" />
 
+        <activity android:name=".HeWeatherActivity" android:theme="@style/HeWeatherActivityTheme"></activity>
     </application>
 
 </manifest>
