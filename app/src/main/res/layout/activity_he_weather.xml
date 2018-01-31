@@ -79,6 +79,13 @@
                     <include layout="@layout/forecast" />
 
                     <include layout="@layout/hourly" />
+
+                    <include layout="@layout/travel" />
+
+                    <include layout="@layout/sports" />
+
+                    <include layout="@layout/cars" />
+
                 </LinearLayout>
             </android.support.v4.widget.NestedScrollView>
 

@@ -12,15 +12,29 @@
         android:textColor="#555555"
         android:textSize="15sp" />
 
-    <TextView
-        android:id="@+id/info_text"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="28dp"
-        android:layout_gravity="center_vertical"
         android:layout_weight="1"
-        android:gravity="center"
-        android:textColor="#555555"
-        android:textSize="15sp" />
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/weather_img"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            android:layout_marginRight="5dp"/>
+
+        <TextView
+            android:id="@+id/info_text"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:textColor="#555555"
+            android:textSize="15sp" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tmp"

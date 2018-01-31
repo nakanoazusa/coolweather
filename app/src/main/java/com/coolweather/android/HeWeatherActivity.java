@@ -3,6 +3,8 @@ package com.coolweather.android;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.preference.PreferenceManager;
@@ -38,6 +40,8 @@ import com.coolweather.android.hegson.Hourly;
 import com.coolweather.android.hegson.Lifestyle;
 import com.coolweather.android.service.AutoUpdateService;
 import com.coolweather.android.util.HttpUtil;
+import com.coolweather.android.util.MyApplication;
+import com.coolweather.android.util.ResourcesUtils;
 import com.coolweather.android.util.Utility;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
@@ -67,6 +71,14 @@ public class HeWeatherActivity extends AppCompatActivity implements AppBarLayout
     private LinearLayout forecastLayout;
     private RecyclerView hourlyEecyclerView;
     private HourlyAdapter adapter;
+    private TextView chuanyiBrf;
+    private TextView chuanyiTxt;
+    private TextView spfBrf;
+    private TextView spfTxt;
+    private TextView sportBrf;
+    private TextView sportTxt;
+    private TextView cwBrf;
+    private TextView cwTxt;
 
     private String mWeatherId;
     public DrawerLayout drawerLayout;
@@ -89,6 +101,14 @@ public class HeWeatherActivity extends AppCompatActivity implements AppBarLayout
         wind_sc = findViewById(R.id.wind_sc);
         hum = findViewById(R.id.hum);
         fl = findViewById(R.id.fl);
+        chuanyiBrf = findViewById(R.id.chuanyi_brf);
+        chuanyiTxt = findViewById(R.id.chuanyi_txt);
+        spfBrf = findViewById(R.id.spf_brf);
+        spfTxt = findViewById(R.id.spf_txt);
+        sportBrf = findViewById(R.id.sport_brf);
+        sportTxt = findViewById(R.id.sport_txt);
+        cwBrf = findViewById(R.id.cw_brf);
+        cwTxt = findViewById(R.id.cw_txt);
         forecastLayout = findViewById(R.id.forecast_layout);
         hourlyEecyclerView = findViewById(R.id.hourly_recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -199,8 +219,11 @@ public class HeWeatherActivity extends AppCompatActivity implements AppBarLayout
             TextView dateText = view.findViewById(R.id.date_text);
             TextView infoText = view.findViewById(R.id.info_text);
             TextView tmp = view.findViewById(R.id.tmp);
+            ImageView weatherImg = view.findViewById(R.id.weather_img);
             dateText.setText(forecast.date);
             infoText.setText(forecast.cond_txt_d);
+            //weatherImg.setImageResource(ResourcesUtils.getDrawableId(MyApplication.getContext(),"hw" + forecast.cond_code_d));
+            Glide.with(this).load(ResourcesUtils.getDrawableId(MyApplication.getContext(),"hw" + forecast.cond_code_d)).into(weatherImg);
             tmp.setText(forecast.tmp_max + " / " + forecast.tmp_min + "℃");
             forecastLayout.addView(view);
         }
@@ -215,24 +238,26 @@ public class HeWeatherActivity extends AppCompatActivity implements AppBarLayout
             aqiText.setText(weather.aqi.city.aqi);
             pm25Text.setText(weather.aqi.city.pm25);
         }*/
-        /*String comfore = "舒适度：";
-        String carWash = "洗车指数：";
-        String sport = "运动指数：";
+
         for (Lifestyle lifestyle : weather.lifestyleList) {
-            if (lifestyle.type.equals("comf")) {
-                comfore += lifestyle.txt;
+            if (lifestyle.type.equals("drsg")) {
+                chuanyiBrf.setText(lifestyle.brf);
+                chuanyiTxt.setText(lifestyle.txt);
             }
-            if (lifestyle.type.equals("cw")) {
-                carWash += lifestyle.txt;
+            if (lifestyle.type.equals("uv")) {
+                spfBrf.setText(lifestyle.brf);
+                spfTxt.setText(lifestyle.txt);
             }
             if (lifestyle.type.equals("sport")) {
-                sport +=  lifestyle.txt;
+                sportBrf.setText(lifestyle.brf);
+                sportTxt.setText(lifestyle.txt);
+            }
+            if (lifestyle.type.equals("cw")) {
+                cwBrf.setText(lifestyle.brf);
+                cwTxt.setText(lifestyle.txt);
             }
         }
-        comfortText.setText(comfore);
-        carWashText.setText(carWash);
-        sportText.setText(sport);
-        weatherLayout.setVisibility(View.VISIBLE);*/
+        //weatherLayout.setVisibility(View.VISIBLE);
         Intent intent = new Intent(this, AutoUpdateService.class);
         startService(intent);
     }
@@ -320,6 +345,4 @@ public class HeWeatherActivity extends AppCompatActivity implements AppBarLayout
         super.onPause();
         appBarLayout.removeOnOffsetChangedListener(this);
     }
-
-
 }
