@@ -15,76 +15,79 @@
         android:textSize="15sp"/>
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_margin="15dp"
-            android:src="@drawable/chuanyi"/>
+        android:layout_height="wrap_content"
+        android:divider="@drawable/spacer_medium"
+        android:showDividers="middle">
 
         <LinearLayout
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/chuanyi_brf"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/lifestyleTitle"
-                android:textSize="15sp"/>
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="15dp"
+                android:src="@drawable/chuanyi"/>
 
-            <TextView
-                android:id="@+id/chuanyi_txt"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/lifestyleInfo"
-                android:textSize="12sp"/>
+                android:layout_gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/chuanyi_brf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/lifestyleTitle"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:id="@+id/chuanyi_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/lifestyleInfo"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+
         </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/account_line"/>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_margin="15dp"
-            android:src="@drawable/ziwaixian"/>
 
         <LinearLayout
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/spf_brf"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/lifestyleTitle"
-                android:textSize="15sp"/>
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="15dp"
+                android:src="@drawable/ziwaixian"/>
 
-            <TextView
-                android:id="@+id/spf_txt"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/lifestyleInfo"
-                android:textSize="12sp"/>
+                android:layout_gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/spf_brf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/lifestyleTitle"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:id="@+id/spf_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/lifestyleInfo"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+
         </LinearLayout>
-
     </LinearLayout>
 
 </LinearLayout>

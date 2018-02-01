@@ -50,7 +50,9 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import org.w3c.dom.Text;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import okhttp3.Call;
@@ -81,6 +83,7 @@ public class HeWeatherActivity extends AppCompatActivity implements AppBarLayout
     private TextView cwTxt;
 
     private String mWeatherId;
+    private String mWeatherUpDateTime;
     public DrawerLayout drawerLayout;
     private Button navButton;
     public RefreshLayout refreshLayout;
@@ -114,6 +117,7 @@ public class HeWeatherActivity extends AppCompatActivity implements AppBarLayout
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         hourlyEecyclerView.setLayoutManager(layoutManager);
+        hourlyList.add(new Hourly());
         adapter = new HourlyAdapter(hourlyList);
         hourlyEecyclerView.setAdapter(adapter);
         hourlyEecyclerView.setNestedScrollingEnabled(false);
@@ -130,6 +134,7 @@ public class HeWeatherActivity extends AppCompatActivity implements AppBarLayout
         if (weatherString != null) {
             HeWeather weather = Utility.handleWeatherResponse(weatherString);
             mWeatherId = weather.basic.cityId;
+            mWeatherUpDateTime = weather.update.loc;
             showWeatherInfo(weather);
         } else {
             mWeatherId = getIntent().getStringExtra("weather_id");
@@ -187,6 +192,7 @@ public class HeWeatherActivity extends AppCompatActivity implements AppBarLayout
                             editor.putString("weather", responseText);
                             editor.apply();
                             mWeatherId = weather.basic.cityId;
+                            mWeatherUpDateTime = weather.update.loc;
                             showWeatherInfo(weather);
                         } else {
                             Toast.makeText(HeWeatherActivity.this, "获取天气信息失败", Toast.LENGTH_SHORT).show();
@@ -210,7 +216,7 @@ public class HeWeatherActivity extends AppCompatActivity implements AppBarLayout
         degreeText.setText(degree);
         weatherInfoText.setText(weatherInfo);
         wind_dir.setText(weather.now.wind_dir);
-        wind_sc.setText(weather.now.wind_sc + "级");
+        wind_sc.setText(weather.now.wind_sc.equals("微风") ? weather.now.wind_sc : weather.now.wind_sc + "级");
         hum.setText(weather.now.hum + "%");
         fl.setText(weather.now.feeltmp + "℃");
         forecastLayout.removeAllViews();
@@ -338,11 +344,23 @@ public class HeWeatherActivity extends AppCompatActivity implements AppBarLayout
     protected void onResume() {
         super.onResume();
         appBarLayout.addOnOffsetChangedListener(this);
+        updateWeather();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         appBarLayout.removeOnOffsetChangedListener(this);
+    }
+
+    private void updateWeather() {
+        try {
+            Date curDate = new Date(System.currentTimeMillis());
+            Date oldDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(mWeatherUpDateTime);
+            if (((curDate.getTime() - oldDate.getTime()) / (1 * 60 * 60 * 1000)) >= 1) {
+                requestWeather(mWeatherId);
+            }
+        } catch (Exception e) {
+        }
     }
 }

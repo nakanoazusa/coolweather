@@ -50,10 +50,12 @@ public class HourlyAdapter extends RecyclerView.Adapter<HourlyAdapter.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Hourly hourly = hourlyList.get(position);
-        holder.tmp.setText(hourly.tmp + "℃");
-        holder.windInfo.setText(hourly.wind_dir + hourly.wind_sc + "级");
-        Glide.with(MyApplication.getContext()).load(ResourcesUtils.getDrawableId(MyApplication.getContext(),"hw" + hourly.cond_code)).into(holder.condImg);
-        holder.hourlTime.setText(hourly.time.split(" ")[1]);
+        if (hourly.tmp != null) {
+            holder.tmp.setText(hourly.tmp + "℃");
+            holder.windInfo.setText(hourly.wind_dir + (hourly.wind_sc.equals("微风") ? hourly.wind_sc : hourly.wind_sc + "级")+"");
+            Glide.with(MyApplication.getContext()).load(ResourcesUtils.getDrawableId(MyApplication.getContext(),"hw" + hourly.cond_code)).into(holder.condImg);
+            holder.hourlTime.setText(hourly.time.split(" ")[1]);
+        }
     }
 
     @Override
