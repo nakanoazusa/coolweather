@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content" android:background="#fff" android:layout_marginTop="8dp">
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:scrollbars="none"
+    android:background="#fff"
+    android:layout_marginTop="8dp">
 
     <!--<TextView
         android:layout_width="wrap_content"
@@ -12,9 +16,12 @@
         android:textColor="#666666"
         android:textSize="15sp"/>-->
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/hourly_recycler_view"
+    <com.coolweather.android.MiuiWeatherView
+        android:id="@+id/weather"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:line_interval="65dp"
+        app:min_point_height="65dp"
+        app:background_color="#ffffff"/>
 
-</LinearLayout>
+</HorizontalScrollView>

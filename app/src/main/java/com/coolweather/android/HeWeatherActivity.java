@@ -91,6 +91,7 @@ public class HeWeatherActivity extends AppCompatActivity implements AppBarLayout
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private String toolbarInfo;
     private List<Hourly> hourlyList = new ArrayList<>();
+    private MiuiWeatherView weatherView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,14 +114,15 @@ public class HeWeatherActivity extends AppCompatActivity implements AppBarLayout
         cwBrf = findViewById(R.id.cw_brf);
         cwTxt = findViewById(R.id.cw_txt);
         forecastLayout = findViewById(R.id.forecast_layout);
-        hourlyEecyclerView = findViewById(R.id.hourly_recycler_view);
+        /*hourlyEecyclerView = findViewById(R.id.hourly_recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         hourlyEecyclerView.setLayoutManager(layoutManager);
         hourlyList.add(new Hourly());
         adapter = new HourlyAdapter(hourlyList);
         hourlyEecyclerView.setAdapter(adapter);
-        hourlyEecyclerView.setNestedScrollingEnabled(false);
+        hourlyEecyclerView.setNestedScrollingEnabled(false);*/
+        weatherView = findViewById(R.id.weather);
 
         drawerLayout = findViewById(R.id.drawer_layout);
         navButton = findViewById(R.id.nav_button);
@@ -235,10 +237,12 @@ public class HeWeatherActivity extends AppCompatActivity implements AppBarLayout
         }
         hourlyList.clear();
         for (Hourly hourly : weather.hourlyList) {
-            hourlyList.add(hourly);
+            hourlyList.add(new Hourly(hourly.time.split(" ")[1], hourly.tmp, hourly.cond_code, hourly.cond_txt));
         }
-        adapter.notifyDataSetChanged();
-        hourlyEecyclerView.smoothScrollToPosition(0);
+        weatherView.setData(hourlyList);
+        weatherView.scrollTo(0, 0);
+        //adapter.notifyDataSetChanged();
+        //hourlyEecyclerView.smoothScrollToPosition(0);
 
         /*if (weather.aqi != null) {
             aqiText.setText(weather.aqi.city.aqi);
