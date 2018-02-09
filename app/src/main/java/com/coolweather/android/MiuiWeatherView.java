@@ -80,6 +80,15 @@ public class MiuiWeatherView extends View {
     private Scroller scroller;
     private ViewConfiguration viewConfiguration;
 
+    public int getmScrollX() {
+        return mScrollX;
+    }
+
+    public void setmScrollX(int mScrollX) {
+        this.mScrollX = mScrollX;
+    }
+
+    private int mScrollX = 0;
 
     public MiuiWeatherView(Context context) {
         this(context, null);
@@ -466,7 +475,7 @@ public class MiuiWeatherView extends View {
         boolean leftUsedScreenLeft = false;
         boolean rightUsedScreenRight = false;
 
-        int scrollX = getScrollX();  //范围控制在0 ~ viewWidth-screenWidth
+        int scrollX = getmScrollX();  //范围控制在0 ~ viewWidth-screenWidth
         float left, right;
         float iconX, iconY;
         float textY;     //文字的x坐标跟图标是一样的，无需额外声明

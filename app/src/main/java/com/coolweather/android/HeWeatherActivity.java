@@ -25,9 +25,11 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -92,6 +94,7 @@ public class HeWeatherActivity extends AppCompatActivity implements AppBarLayout
     private String toolbarInfo;
     private List<Hourly> hourlyList = new ArrayList<>();
     private MiuiWeatherView weatherView;
+    private HorizontalScrollView hsv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,7 +125,25 @@ public class HeWeatherActivity extends AppCompatActivity implements AppBarLayout
         adapter = new HourlyAdapter(hourlyList);
         hourlyEecyclerView.setAdapter(adapter);
         hourlyEecyclerView.setNestedScrollingEnabled(false);*/
+        hsv = findViewById(R.id.hsv);
         weatherView = findViewById(R.id.weather);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            hsv.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+                @Override
+                public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                    weatherView.setmScrollX(scrollX);
+                    weatherView.invalidate();
+                }
+            });
+        } else {
+            weatherView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+                @Override
+                public void onScrollChanged() {
+                    weatherView.setmScrollX(hsv.getScrollX());
+                    weatherView.invalidate();
+                }
+            });
+        }
 
         drawerLayout = findViewById(R.id.drawer_layout);
         navButton = findViewById(R.id.nav_button);
